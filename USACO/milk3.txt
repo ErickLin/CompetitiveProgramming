@@ -1,0 +1,3 @@
+YOUR PROGRAM ('milk3') WORKED FIRST TIME!  That's fantastic
+-- and a rare thing.  Please accept these special automated
+congratulations.

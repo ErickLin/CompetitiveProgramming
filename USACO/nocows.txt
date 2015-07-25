@@ -1,0 +1,24 @@
+USER: Erick Lin [ericksc1]
+TASK: nocows
+LANG: JAVA
+
+Compiling...
+Compile: OK
+
+Executing...
+   Test 1: TEST OK [0.101 secs, 32588 KB]
+   Test 2: TEST OK [0.115 secs, 31564 KB]
+   Test 3: TEST OK [0.072 secs, 30540 KB]
+   Test 4: TEST OK [0.079 secs, 30540 KB]
+   Test 5: TEST OK [0.137 secs, 31564 KB]
+   Test 6: TEST OK [0.151 secs, 31804 KB]
+   Test 7: TEST OK [0.151 secs, 30540 KB]
+   Test 8: TEST OK [-252832.585 secs, 31564 KB]
+   Test 9: TEST OK [0.158 secs, 30540 KB]
+   Test 10: TEST OK [0.144 secs, 30540 KB]
+   Test 11: TEST OK [0.144 secs, 30540 KB]
+   Test 12: TEST OK [0.166 secs, 30540 KB]
+
+All tests OK.
+Your program ('nocows') produced all correct answers!  This is your
+submission #3 for this problem.  Congratulations!

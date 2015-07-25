@@ -1,0 +1,1 @@
+AiLevel1.jar, AiLevel2.jar, and AiLevel3.jar are the executable files to be used with the host for the different game types, respectively.
