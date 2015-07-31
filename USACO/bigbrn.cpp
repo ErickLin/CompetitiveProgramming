@@ -21,32 +21,32 @@ int main() {
         fin >> r >> c;
         hasTree[--r][--c] = true;
     }
-    int max = 0;
-    int lo = 1, hi = n;
-    while (lo <= hi) {
-        int mid = lo + ((hi - lo) >> 1);
-        bool found = false;
-        for (int i = 0; i + mid <= n && !found; i++) {
-            for (int j = 0; j + mid <= n && !found; j++) {
-                bool valid = true;
-                for (int r = i; r < i + mid && valid; r++) {
-                    for (int c = j; c < j + mid && valid; c++) {
-                        if (hasTree[r][c]) {
-                            valid = false;
-                        }
-                    }
-                }
-                if (valid) {
-                    found = true;
-                    max = mid;
-                    lo = mid + 1;
-                }
-            }
-        }
-        if (!found) {
-            hi = mid - 1;
+    int ans = 0;
+    vector<vector<int> > dp(n, vector<int>(n));
+    for (int i = 0; i < n; i++) {
+        dp[i][0] = hasTree[i][0] ? 0 : 1;
+        if (dp[i][0] > ans) {
+            ans = dp[i][0];
         }
     }
-    fout << max << '\n';
+    for (int j = 0; j < n; j++) {
+        dp[0][j] = hasTree[0][j] ? 0 : 1;
+        if (dp[0][j] > ans) {
+            ans = dp[0][j];
+        }
+    }
+    for (int i = 1; i < n; i++) {
+        for (int j = 1; j < n; j++) {
+            if (hasTree[i][j]) {
+                dp[i][j] = 0;
+            } else {
+                dp[i][j] = min(min(dp[i - 1][j], dp[i - 1][j - 1]), dp[i][j - 1]) + 1;
+            }
+            if (dp[i][j] > ans) {
+                ans = dp[i][j];
+            }
+        }
+    }
+    fout << ans << '\n';
     return 0;
 }
