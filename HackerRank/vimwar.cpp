@@ -11,41 +11,46 @@ int main() {
     int n, m;
     cin >> n >> m;
     vector<int> a(n);
-    vector<long long> count(1 << m);
-    vector<long long> count2(1 << m);
+    vector<long long> count(1 << 20);
     for (int i = 0; i < n; i++) {
         for (int j = m - 1; j >= 0; j--) {
             char p;
             cin >> p;
-            a[i] += ((p -= '0') << j);
+            a[i] += ((p - '0') << j);
         }
+        count[a[i]]++;
     }
     int b = 0;
     for (int j = m - 1; j >= 0; j--) {
         char p;
         cin >> p;
-        b += ((p -= '0') << j);
+        b += ((p - '0') << j);
     }
-    int startIndex = 0;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            if ((a[i] & (1 << j)) == 1 && (b & (1 << j)) == 0) {
-                a[i] = -1;
-                startIndex++;
-                break;
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < (1 << 20); j++) {
+            if (j & (1 << i)) {
+                count[j] += count[j ^ (1 << i)];
             }
         }
     }
-    sort(a.begin(), a.end());
-    for (int i = startIndex; i < n; i++) {
-        count[a[i]]++;
+    vector<long long> pows(1 << 20);
+    pows[0] = 1;
+    for (int i = 1; i < (1 << 20); i++) {
+        pows[i] = (pows[i - 1] << 1) % MOD;
     }
-    for (int i = startIndex; i < n; i++) {
-        for (int j = (1 << m) - 1; j >= 0; j--) {
-            count2[a[i] | j] = (count2[a[i] | j] + count2[j]) % MOD;
+    for (int i = 0; i < (1 << 20); i++) {
+        pows[i] = (pows[i] - 1 + MOD) % MOD;
+    }
+    long long ans = 0;
+    for (int i = 0; i < (1 << 20); i++) {
+        if ((i | b) == b) {
+            if (__builtin_popcount(i ^ b) % 2) {
+                ans = (ans - pows[count[i]] + MOD) % MOD;
+            } else {
+                ans = (ans + pows[count[i]]) % MOD;
+            }
         }
-        count2[a[i]]++;
     }
-    cout << count2[b] << '\n';
+    cout << ans << '\n';
     return 0;
 }
