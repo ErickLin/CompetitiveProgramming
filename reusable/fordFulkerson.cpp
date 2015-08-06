@@ -9,8 +9,8 @@ struct state {
     long long df;
 };
 
-void fordFulkerson(vector<vector<long long> > &f, vector<vector<long long> > &c
-        , int s, int t) {
+vector<vector<long long> > fordFulkerson(vector<vector<long long> > &c, int s, int t) {
+    vector<vector<long long> > f(c.size(), vector<long long>(c[0].size()));
     bool canReach = true;
     while (canReach) {
         stack<state> q;
@@ -45,5 +45,9 @@ void fordFulkerson(vector<vector<long long> > &f, vector<vector<long long> > &c
             }
             q.pop();
         }
+        if (!reached) {
+            canReach = false;
+        }
     }
+    return f;
 }
