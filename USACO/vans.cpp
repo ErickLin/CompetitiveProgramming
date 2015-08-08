@@ -10,7 +10,7 @@ TASK: vans
 #include <vector>
 using namespace std;
 
-#define BIGINT_LEN 400
+#define BIGINT_LEN 499
 typedef unsigned int u32;
 
 struct bigint {
@@ -83,83 +83,32 @@ struct bigint {
     }
 };
 
-struct state {
-    int r, c;
-    vector<vector<bool> > vis;
-
-    state(int r, int c, vector<vector<bool> > vis) {
-        this->r = r;
-        this->c = c;
-        this->vis = vis;
-    }
-};
-
-bool operator<(const state &a, const state &b) {
-    if (a.r == b.r) {
-        if (a.c == b.c) {
-            for (int i = 0; i < a.vis.size(); i++) {
-                for (int j = 0; j < a.vis[0].size(); j++) {
-                    if (a.vis[i][j] != b.vis[i][j]) {
-                        return a.vis[i][j] < b.vis[i][j];
-                    }
-                }
-            }
-            return false;
-        }
-        return a.c < b.c;
-    }
-    return a.r < b.r;
-}
-
-map<state, bigint> dp;
-
-bigint dfs(int r, int c, vector<vector<bool> > &vis, int numVis) {
-    state now(r, c, vis);
-    //cout << r << ' ' << c << ' ' << numVis << '\n';
-    if (dp.find(now) != dp.end()) {
-        return dp[now];
-    }
-    bigint ret(0);
-    if (r == 0 && c == 0) {
-        if (numVis == vis.size() * vis[0].size()) {
-            ret.add(1);
-        }
-    } else {
-        if (r > 0 && !vis[r - 1][c]) {
-            vis[r - 1][c] = true;
-            ret.add(dfs(r - 1, c, vis, numVis + 1));
-            vis[r - 1][c] = false;
-        }
-        if (r < vis.size() - 1 && !vis[r + 1][c]) {
-            vis[r + 1][c] = true;
-            ret.add(dfs(r + 1, c, vis, numVis + 1));
-            vis[r + 1][c] = false;
-        }
-        if (c > 0 && !vis[r][c - 1]) {
-            vis[r][c - 1] = true;
-            ret.add(dfs(r, c - 1, vis, numVis + 1));
-            vis[r][c - 1] = false;
-        }
-        if (c < vis[0].size() - 1 && !vis[r][c + 1]) {
-            vis[r][c + 1] = true;
-            ret.add(dfs(r, c + 1, vis, numVis + 1));
-            vis[r][c + 1] = false;
-        }
-    }
-    dp[now] = ret;
-    return ret;
-}
-
 int main() {
     ifstream fin("vans.in");
     ofstream fout("vans.out");
     int n;
     fin >> n;
-    vector<vector<bool> > vis(4, vector<bool>(n));
-    vis[1][0] = true;
-    bigint a = dfs(1, 0, vis, 1);
+    vector<vector<bigint> > dp(n, vector<bigint>(6));
+    bigint a(1);
+    if (n > 1) {
+        dp[1][0] = dp[1][1] = a;
+    }
+    for (int i = 2; i < n; i++) {
+        dp[i][0].add(dp[i - 1][0]);
+        dp[i][0].add(dp[i - 1][2]);
+        dp[i][0].add(dp[i - 1][4]);
+        dp[i][1] = dp[i][0];
+        dp[i][1].add(dp[i - 1][3]);
+        dp[i][2].add(dp[i - 1][1]);
+        dp[i][2].add(dp[i - 1][5]);
+        dp[i][3] = dp[i - 1][1];
+        dp[i][4] = dp[i][2];
+        dp[i][5] = dp[i][2];
+    }
+    a = dp[n - 1][1];
+    a.add(dp[n - 1][5]);
     //double the number of answers due to reversing routes
     a.add(a);
-    cout << a.toString() << '\n';
+    fout << a.toString() << '\n';
     return 0;
 }
