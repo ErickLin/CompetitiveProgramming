@@ -49,25 +49,27 @@ bool decrypt(char* src, int srcLen, char* targ, int targLen) {
     }
     hashTable[h] = true;
 
-    vector<int> cPos, oPos, wPos, pos;
+    int cPos[srcLen], oPos[srcLen], wPos[srcLen], pos[srcLen];
+    int cNum = 0, oNum = 0, wNum = 0, posNum = 0;
     for (int i = 0; i < srcLen; i++) {
         if (src[i] == 'C') {
-            cPos.push_back(i);
-            pos.push_back(i);
+            cPos[cNum++] = i;
+            pos[posNum++] = i;
         } else if (src[i] == 'O') {
-            oPos.push_back(i);
-            pos.push_back(i);
+            oPos[oNum++] = i;
+            pos[posNum++] = i;
         } else if (src[i] == 'W') {
-            wPos.push_back(i);
-            pos.push_back(i);
+            wPos[wNum++] = i;
+            pos[posNum++] = i;
         }
     }
 
-    if (cPos.empty() || oPos.empty() || wPos.empty()
-            || srcLen - pos.size() != targLen
+    if (cNum == 0 || oNum == 0 || wNum == 0
+            || srcLen - posNum != targLen
+            || cNum != oNum || oNum != wNum
             || oPos[0] < cPos[0] || wPos[0] < cPos[0]
-            || cPos[cPos.size() - 1] > wPos[wPos.size() - 1]
-            || oPos[oPos.size() - 1] > wPos[wPos.size() - 1]) {
+            || cPos[cNum - 1] > wPos[wNum - 1]
+            || oPos[oNum - 1] > wPos[wNum - 1]) {
         return false;
     }
     for (int i = 0; i < cPos[0]; i++) {
@@ -76,28 +78,28 @@ bool decrypt(char* src, int srcLen, char* targ, int targLen) {
         }
     }
 
-    pos.push_back(srcLen);
+    pos[posNum++] = srcLen;
     char substr[srcLen];
     //cout << srcLen << '\n';
     //cout << src << '\n';
-    for (int i = 0; i < pos.size(); i++) {
+    for (int i = 0; i < posNum; i++) {
         int start = (i == 0 ? 0 : pos[i - 1] + 1);
         if (pos[i] > pos[i - 1] + 1) {
             for (int j = start; j < pos[i]; j++) {
                 substr[j - start] = src[j];
             }
             substr[pos[i] - start] = '\0';
-            //cout << substr << '\n';
-            if (!strstr(src, substr)) {
+            if (!strstr(targ, substr)) {
                 return false;
             }
+            //cout << substr << '\n';
         }
     }
     //cout << "\n";
 
-    for (int i = 0; i < cPos.size(); i++) {
-        for (int j = 0; j < oPos.size(); j++) {
-            for (int k = 0; k < wPos.size(); k++) {
+    for (int i = 0; i < cNum; i++) {
+        for (int j = 0; j < oNum; j++) {
+            for (int k = wNum - 1; k >= 0; k--) {
                 if (cPos[i] < oPos[j] && oPos[j] < wPos[k]) {
                     //cout << cPos[i] << ' ' << oPos[j] << ' ' << wPos[k] << '\n';
                     char newSrc[srcLen - 2];
