@@ -10,50 +10,28 @@ TASK: latin
 #include <vector>
 using namespace std;
 
-long long fill(int r, int c, vector<vector<vector<bool> > > &choices) {
-    int n = choices.size();
+vector<bool> temp;
+
+long long fill(int r, int c, vector<bool> &usedRow, vector<vector<bool> > &usedCol) {
+    int n = usedCol.size();
     //first n - 1 lines automatically determine last line
     if (r == n - 1) {
-        /*
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                cout << sq[i][j] << ' ';
-            }
-            cout << '\n';
-        }
-        cout << '\n';
-        */
         return 1;
     }
+    if (c == 1) {
+        temp = usedRow;
+        fill(usedRow.begin(), usedRow.end(), 0);
+        usedRow[r + 1] = true;
+    }
     long long res = 0;
-    for (int k = 1; k < choices[r][c].size(); k++) {
-        if (choices[r][c][k]) {
-            //sq[r][c] = *it;
-            vector<bool> erasedRow(n), erasedCol(n);
-            for (int i = r + 1; i < n; i++) {
-                if (choices[i][c][k]) {
-                    choices[i][c][k] = false;
-                    erasedRow[i] = true;
-                }
-            }
-            for (int j = c + 1; j < n; j++) {
-                if (choices[r][j][k]) {
-                    choices[r][j][k] = false;
-                    erasedCol[j] = true;
-                }
-            }
-            long long dRes = fill(c == n - 1 ? r + 1 : r, c == n - 1 ? 1 : c + 1, choices);
-            //sq[r][c] = 0;
-            for (int i = r + 1; i < n; i++) {
-                if (erasedRow[i]) {
-                    choices[i][c][k] = true;
-                }
-            }
-            for (int j = c + 1; j < n; j++) {
-                if (erasedCol[j]) {
-                    choices[r][j][k] = true;
-                }
-            }
+    for (int k = 1; k <= n; k++) {
+        if (!usedRow[k] && !usedCol[c][k]) {
+            usedRow[k] = true;
+            usedCol[c][k] = true;
+            long long dRes = fill(c == n - 1 ? r + 1 : r, c == n - 1 ? 1 : c + 1
+                    , usedRow, usedCol);
+            usedRow[k] = false;
+            usedCol[c][k] = false;
             if (r == 1 && k > c + 1) {
                 res += (n - k + 1) * dRes;
                 break;
@@ -61,6 +39,9 @@ long long fill(int r, int c, vector<vector<vector<bool> > > &choices) {
                 res += dRes;
             }
         }
+    }
+    if (c == 1) {
+        usedRow = temp;
     }
     return res;
 }
@@ -70,27 +51,16 @@ int main() {
     ofstream fout("latin.out");
     int n;
     fin >> n;
-    //vector<vector<int> > sq(n, vector<int>(n));
-    vector<vector<vector<bool> > > choices(n, vector<vector<bool> >(n, vector<bool>(n + 1)));
-    /*
-    for (int i = 0; i < n; i++) {
-        sq[0][i] = i + 1;
-        sq[i][0] = i + 1;
-    }
-    */
-    for (int i = 1; i < n; i++) {
-        for (int j = 1; j < n; j++) {
-            for (int k = 1; k <= n; k++) {
-                if (k != i + 1 && k != j + 1) {
-                    choices[i][j][k] = true;
-                }
-            }
-        }
+    //keep track of which numbers have been used in each row and column
+    vector<bool> usedRow(n + 1);
+    vector<vector<bool> > usedCol(n, vector<bool>(n + 1));
+    for (int j = 0; j < n; j++) {
+        usedCol[j][j + 1] = true;
     }
     long long fac = 1;
     for (int i = 2; i < n; i++) {
         fac *= i;
     }
-    fout << fac * fill(1, 1, choices) << '\n';
+    fout << fac * fill(1, 1, usedRow, usedCol) << '\n';
     return 0;
 }
