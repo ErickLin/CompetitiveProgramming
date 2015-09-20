@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <climits>
 #include <cmath>
 #include <iomanip>
 #include <iostream>
@@ -7,10 +6,12 @@
 using namespace std;
 
 bool cmp(pair<double, double> a, pair<double, double> b) {
-    if (a.first == b.first) {
+    long long s = a.first * 1000 + 0.5;
+    long long t = b.first * 1000 + 0.5;
+    if (s == t) {
         return a.second > b.second;
     }
-    return a.first > b.first;
+    return s > t;
 }
 
 double dist(double x1, double y1, double x2, double y2) {
@@ -22,44 +23,27 @@ double area(double x1, double y1, double x2, double y2, double x3, double y3) {
 }
 
 int main() {
-    double x1 = 10.0, y1 = 10.0, x2 = 10.0, y2 = 10.0, x3 = 10.0, y3 = 10.0, x4 = 10.0, y4 = 10.0;
-    while (x1 != 0.0 || y1 != 0.0 || x2 != 0.0 || y2 != 0.0) {
+    double x1 = 10.0, y1 = 10.0, x2 = 10.0, y2 = 10.0
+        , x3 = 10.0, y3 = 10.0, x4 = 10.0, y4 = 10.0;
+    while (x1 != 0.0 || y1 != 0.0 || x2 != 0.0 || y2 != 0.0
+            || x3 != 0.0 || y3 != 0.0 || x4 != 0.0 || y4 != 0.0) {
         cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
-        if (x1 != 0.0 || y1 != 0.0 || x2 != 0.0 || y2 != 0.0) {
-            double xm, ym;
-            if (x3 == x1) {
+        if (x1 != 0.0 || y1 != 0.0 || x2 != 0.0 || y2 != 0.0
+                || x3 != 0.0 || y3 != 0.0 || x4 != 0.0 || y4 != 0.0) {
+            double xm = -1, ym = -1;
+            if (x1 == x3) {
+                double m24 = (y2 - y4) / (x2 - x4);
                 xm = x1;
-                ym = (y1 + y3) / 2;
+                ym = y4 + m24 * (xm - x4);
             } else if (x2 == x4) {
+                double m13 = (y3 - y1) / (x3 - x1);
                 xm = x2;
-                ym = (y2 + y4) / 2;
+                ym = y3 + m13 * (xm - x3);
             } else {
                 double m13 = (y3 - y1) / (x3 - x1);
                 double m24 = (y2 - y4) / (x2 - x4);
                 xm = (-1 * m24 * x4 + m13 * x1 - y1 + y4) / (m13 - m24);
                 ym = y4 + m24 * (xm - x4);
-            }
-            if (isnan(xm) || isinf(xm) || isnan(ym) || isinf(ym)
-                    || (xm - x1) * (xm - x3) >= 0.001 || (xm - x2) * (xm - x4) >= 0.001
-                    || (ym - y1) * (ym - y3) >= 0.001 || (ym - y2) * (ym - y4) >= 0.001) {
-                int temp = x2;
-                x2 = x3;
-                x3 = temp;
-                temp = y2;
-                y2 = y3;
-                y3 = temp;
-                if (x3 == x1) {
-                    xm = x1;
-                    ym = (y1 + y3) / 2;
-                } else if (x2 == x4) {
-                    xm = x2;
-                    ym = (y2 + y4) / 2;
-                } else {
-                    double m13 = (y3 - y1) / (x3 - x1);
-                    double m24 = (y2 - y4) / (x2 - x4);
-                    xm = (-1 * m24 * x4 + m13 * x1 - y1 + y4) / (m13 - m24);
-                    ym = y4 + m24 * (xm - x4);
-                }
             }
             vector<pair<double, double> > quads(4);
             quads[0] = make_pair(area(x1, y1, x2, y2, xm, ym), dist(x1, y1, x2, y2) + dist(x2, y2, xm, ym) + dist(xm, ym, x1, y1));
@@ -71,7 +55,7 @@ int main() {
             for (int i = 1; i < 4; i++) {
                 cout << fixed << setprecision(3) << ' ' << quads[i].first << ' ' << quads[i].second;
             }
-            cout << fixed << setprecision(3) << '\n';
+            cout << '\n';
         }
     }
     return 0;
