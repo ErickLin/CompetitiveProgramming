@@ -4,13 +4,16 @@
 #include <vector>
 using namespace std;
 
+typedef vector<long long> vll;
+typedef vector<vector<long long> > vvll;
+
 struct state {
     int node;
     long long df;
 };
 
-vector<vector<long long> > fordFulkerson(vector<vector<long long> > &c, int s, int t) {
-    vector<vector<long long> > f(c.size(), vector<long long>(c[0].size()));
+vvll fordFulkerson(vvll &c, int s, int t) {
+    vvll f(c.size(), vll(c[0].size()));
     bool canReach = true;
     while (canReach) {
         stack<state> q;
@@ -25,6 +28,7 @@ vector<vector<long long> > fordFulkerson(vector<vector<long long> > &c, int s, i
         bool reached = false;
         while (!q.empty() && !reached) {
             struct state now = q.top();
+            q.pop();
             if (now.node == t) {
                 reached = true;
                 for (int i = now.node; prev[i] != -1; i = prev[i]) {
@@ -43,7 +47,6 @@ vector<vector<long long> > fordFulkerson(vector<vector<long long> > &c, int s, i
                     }
                 }
             }
-            q.pop();
         }
         if (!reached) {
             canReach = false;
