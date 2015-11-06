@@ -48,16 +48,14 @@ int main() {
                 int v = pq.top();
                 pq.pop();
                 */
-                if (!vis[v]) {
-                    //cout << v << ' ' << dists[v] << '\n';
-                    vis[v] = true;
-                    distSum += dists[v];
-                    for (int i = 0; i < n; i++) {
-                        if (!vis[i]) {
-                            if (dists[i] > dist(pts[v], pts[i])) {
-                                dists[i] = dist(pts[v], pts[i]);
-                                //pq.push(i);
-                            }
+                //cout << v << ' ' << dists[v] << '\n';
+                vis[v] = true;
+                distSum += dists[v];
+                for (int j = 0; j < n; j++) {
+                    if (!vis[j]) {
+                        if (dists[j] > dist(pts[v], pts[j])) {
+                            dists[j] = dist(pts[v], pts[j]);
+                            //pq.push(j);
                         }
                     }
                 }

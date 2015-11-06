@@ -1,5 +1,3 @@
-package Fall_09_27_14;
-
 /*
 ID: Jugglebrosjr2
 LANG: JAVA
