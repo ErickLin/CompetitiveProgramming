@@ -1,7 +1,7 @@
 #include <vector>
 using namespace std;
 
-vector<vector<long long> > comb(int n) {
+vector<vector<long long> > comb(int n, int MOD) {
 	vector<vector<long long> > comb(n + 1, vector<long long>(n + 1));
     comb[0][0] = 1;
     for (int i = 0; i <= n; i++) {
