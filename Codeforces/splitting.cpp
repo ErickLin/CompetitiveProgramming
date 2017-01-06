@@ -29,5 +29,35 @@ typedef pair<int, int> pii;
 typedef pair<double, double> pdd;
 
 int main() {
+    int n;
+    cin >> n;
+    vi a(n);
+    bool yes = false;
+    int nnzero = 0, start = n;
+    forf(i, n) {
+        cin >> a[i];
+        if (a[i] != 0) {
+            yes = true;
+            nnzero++;
+            if (nnzero == 2) {
+                start = i;
+            }
+        }
+    }
+    if (yes) {
+        cout << "YES\n" << nnzero << '\n';
+        cout << "1 " << start << '\n';
+        if (start < n) {
+            cout << start + 1 << ' ';
+            for (int i = start + 1; i < n; i++) {
+                if (a[i] != 0) {
+                    cout << i << '\n' << i + 1 << ' ';
+                }
+            }
+            cout << n << '\n';
+        }
+    } else {
+        cout << "NO\n";
+    }
     return 0;
 }

@@ -13,10 +13,8 @@ using namespace std;
 #define forf(i, n) for (int i = 0; i < n; i++)
 #define forb(i, n) for (int i = n - 1; i >= 0; i--)
 typedef long long ll;
-typedef long double ld;
 typedef vector<int> vi;
 typedef vector<vector<int> > vvi;
-typedef vector<double> vd;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 typedef vector<bool> vb;
@@ -29,5 +27,16 @@ typedef pair<int, int> pii;
 typedef pair<double, double> pdd;
 
 int main() {
+    cout << "100000\n";
+    forf(i, 10) {
+        forf(j, 100000) {
+            if (rand() % 1000 == 0) {
+                cout << 'X';
+            } else {
+                cout << '.';
+            }
+        }
+        cout << '\n';
+    }
     return 0;
 }
