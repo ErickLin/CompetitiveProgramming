@@ -27,9 +27,33 @@ typedef vector<string> vs;
 typedef vector<vector<string> > vvs;
 typedef pair<int, int> pii;
 typedef pair<double, double> pdd;
-typedef vector<pii> vpii;
-typedef vector<vpii> vvpii;
 
 int main() {
+    int n;
+    cin >> n;
+    queue<int> d, r;
+    forf(i, n) {
+        char c;
+        cin >> c;
+        if (c == 'D') {
+            d.push(i);
+        } else {
+            r.push(i);
+        }
+    }
+    while (!d.empty() && !r.empty()) {
+        if (d.front() < r.front()) {
+            d.push(d.front() + n);
+        } else {
+            r.push(r.front() + n);
+        }
+        d.pop();
+        r.pop();
+    }
+    if (!d.empty()) {
+        cout << "D\n";
+    } else {
+        cout << "R\n";
+    }
     return 0;
 }

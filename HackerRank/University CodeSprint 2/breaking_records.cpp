@@ -27,9 +27,25 @@ typedef vector<string> vs;
 typedef vector<vector<string> > vvs;
 typedef pair<int, int> pii;
 typedef pair<double, double> pdd;
-typedef vector<pii> vpii;
-typedef vector<vpii> vvpii;
 
 int main() {
+    int n;
+    cin >> n;
+    vi s(n);
+    forf(i, n) {
+        cin >> s[i];
+    }
+    int highest = s[0], lowest = s[0], break_high = 0, break_low = 0;
+    forf(i, n) {
+        if (s[i] > highest) {
+            highest = s[i];
+            break_high++;
+        }
+        if (s[i] < lowest) {
+            lowest = s[i];
+            break_low++;
+        }
+    }
+    cout << break_high << ' ' << break_low << '\n';
     return 0;
 }
