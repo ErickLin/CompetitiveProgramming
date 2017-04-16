@@ -21,7 +21,6 @@ typedef vector<vvi> vvvi;
 typedef vector<double> vd;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
-typedef vector<vvll> vvvll;
 typedef vector<bool> vb;
 typedef vector<vb> vvb;
 typedef vector<char> vc;
@@ -36,5 +35,14 @@ typedef set<int> si;
 typedef vector<si> vsi;
 
 int main() {
+    string s;
+    cin >> s;
+    int wcount = 0;
+    forf(i, s.size()) {
+        if (s[i] == 'W') {
+            wcount++;
+        }
+    }
+    cout << (wcount == s.size() - wcount) << '\n';
     return 0;
 }

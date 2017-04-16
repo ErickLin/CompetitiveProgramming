@@ -21,7 +21,6 @@ typedef vector<vvi> vvvi;
 typedef vector<double> vd;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
-typedef vector<vvll> vvvll;
 typedef vector<bool> vb;
 typedef vector<vb> vvb;
 typedef vector<char> vc;
@@ -36,5 +35,16 @@ typedef set<int> si;
 typedef vector<si> vsi;
 
 int main() {
+    cout << "300\n";
+    forf(i, 300) {
+        forf(j, 300) {
+            if (rand() % 2 == 0) {
+                cout << '(';
+            } else {
+                cout << ')';
+            }
+        }
+        cout << '\n';
+    }
     return 0;
 }
