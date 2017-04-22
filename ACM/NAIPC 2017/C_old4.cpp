@@ -54,10 +54,10 @@ ll recur(int center, int start, int end, vvb &has_edge, vvvll &dp) {
     for (int i = start; i <= end; i = (i + 1) % n) {
         if (has_edge[center][i]) { // add an edge from center to i
             ll term1 = 0, term2 = 0;
-            term1 = ((i == start) ? 1 : recur(center, start, (i - 1 + n) % n, has_edge, dp))
-                * ((i == end) ? 1 : recur(i, (i + 1) % n, end, has_edge, dp)) % MOD;
-            term2 = ((i == start) ? 1 : recur(i, start, (i - 1 + n) % n, has_edge, dp))
-                * ((i == end) ? 1 : recur((end + 1) % n, (i + 1) % n, end, has_edge, dp)) % MOD;
+            term1 = //((i == start) ? 1 : recur(center, start, (i - 1 + n) % n, has_edge, dp)) *
+                ((i == end) ? 1 : recur(i, (i + 1) % n, end, has_edge, dp)) % MOD;
+            term2 = ((i == start) ? 1 : recur(i, start, (i - 1 + n) % n, has_edge, dp)) *
+                ((i == end) ? 1 : recur((end + 1) % n, (i + 1) % n, end, has_edge, dp)) % MOD;
             ret = (ret + (term1 + term2) % MOD) % MOD;
         }
         if (i == end) {

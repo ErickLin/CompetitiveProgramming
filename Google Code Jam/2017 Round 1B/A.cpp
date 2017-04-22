@@ -1,9 +1,10 @@
 #include <algorithm>
-#include <climits>
+#include <cfloat>
 #include <cmath>
 #include <deque>
 #include <iomanip>
 #include <iostream>
+#include <limits>
 #include <map>
 #include <queue>
 #include <set>
@@ -33,13 +34,25 @@ typedef vector<pii> vpii;
 typedef vector<vpii> vvpii;
 typedef set<int> si;
 typedef vector<si> vsi;
-
-class  {
-    public:
-        
-};
+using namespace std;
 
 int main() {
-     a;
-    cout << a. << '\n';
+	int T;
+	cin >> T;
+	for (int t = 1; t <= T; t++) {
+        int d, n;
+        cin >> d >> n;
+        vi k(n), s(n);
+        long double ans = 1000000000000000000;
+        forf(i, n) {
+            cin >> k[i] >> s[i];
+            double t = (long double) (d - k[i]) / s[i];
+            ans = min(ans, (long double) d / t);
+            //ans = min(ans, (long double) d * s[i] / (d - k[i]));
+            //cout << (long double) d * s[i] << ' ' << d - k[i] << ' ' << (long double) d * s[i] / (d - k[i]) << '\n';
+        }
+		cout << "Case #" << t << ": ";
+        cout << fixed << setprecision(8) << ans << '\n';
+	}
+	return 0;
 }
