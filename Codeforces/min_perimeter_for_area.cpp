@@ -1,3 +1,4 @@
+// Codeforces Round 859B
 #include <algorithm>
 #include <climits>
 #include <cmath>
@@ -8,7 +9,6 @@
 #include <queue>
 #include <set>
 #include <stack>
-#include <unordered_set>
 #include <vector>
 using namespace std;
 #define mp make_pair
@@ -20,7 +20,6 @@ typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef vector<vvi> vvvi;
 typedef vector<double> vd;
-typedef vector<vd> vvd;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 typedef vector<vvll> vvvll;
@@ -38,5 +37,28 @@ typedef set<int> si;
 typedef vector<si> vsi;
 
 int main() {
+    int area;
+    cin >> area;
+    int sqrt = 1;
+    int lo = 1, hi = 1000;
+    while (lo <= hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (mid * mid <= area) {
+            if (sqrt < mid) {
+                sqrt = mid;
+            }
+            lo = mid + 1;
+        } else {
+            hi = mid - 1;
+        }
+    }
+    int perimeter = sqrt * 4;
+    if (area > sqrt * sqrt) {
+        perimeter += 2;
+    }
+    if (area > (sqrt + 1) * sqrt) {
+        perimeter += 2;
+    }
+    cout << perimeter << '\n';
     return 0;
 }

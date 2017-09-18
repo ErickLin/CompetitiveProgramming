@@ -1,3 +1,4 @@
+// Codeforces Round 859A
 #include <algorithm>
 #include <climits>
 #include <cmath>
@@ -8,7 +9,6 @@
 #include <queue>
 #include <set>
 #include <stack>
-#include <unordered_set>
 #include <vector>
 using namespace std;
 #define mp make_pair
@@ -20,7 +20,6 @@ typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef vector<vvi> vvvi;
 typedef vector<double> vd;
-typedef vector<vd> vvd;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 typedef vector<vvll> vvvll;
@@ -38,5 +37,18 @@ typedef set<int> si;
 typedef vector<si> vsi;
 
 int main() {
+    int k;
+    cin >> k;
+    int lowest_rank = 1;
+    forf(i, k) {
+        int rank;
+        cin >> rank;
+        lowest_rank = max(lowest_rank, rank);
+    }
+    if (lowest_rank > 25) {
+        cout << lowest_rank - 25 << '\n';
+    } else {
+        cout << "0\n";
+    }
     return 0;
 }

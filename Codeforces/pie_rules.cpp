@@ -1,3 +1,4 @@
+// Codeforces Round 859C
 #include <algorithm>
 #include <climits>
 #include <cmath>
@@ -8,7 +9,6 @@
 #include <queue>
 #include <set>
 #include <stack>
-#include <unordered_set>
 #include <vector>
 using namespace std;
 #define mp make_pair
@@ -20,7 +20,6 @@ typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef vector<vvi> vvvi;
 typedef vector<double> vd;
-typedef vector<vd> vvd;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 typedef vector<vvll> vvvll;
@@ -37,6 +36,27 @@ typedef vector<vpii> vvpii;
 typedef set<int> si;
 typedef vector<si> vsi;
 
+int partial_score(int i, vi& slices) {
+    int n = slices.size();
+    if (i == n - 1) {
+        return slices[i];
+    } else {
+        return abs(slices[i] - partial_score(i + 1, slices));
+    }
+}
+
 int main() {
+    int n;
+    cin >> n;
+    int sum = 0;
+    vi slices(n);
+    forf(i, n) {
+        cin >> slices[i];
+        sum += slices[i];
+    }
+    int d = partial_score(0, slices);
+    int alice_score = (sum - d) / 2;
+    int bob_score = alice_score + d;
+    cout << alice_score << ' ' << bob_score << '\n';
     return 0;
 }
