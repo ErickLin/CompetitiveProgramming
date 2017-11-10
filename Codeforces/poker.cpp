@@ -1,8 +1,8 @@
+// 574C
 #include <algorithm>
 #include <iostream>
 #include <vector>
 using namespace std;
-//Codeforces Round #318 - Div. 1A
 
 long long gcd(long long a, long long b) {
 	if (max(a, b) % (min(a, b)) == 0) {

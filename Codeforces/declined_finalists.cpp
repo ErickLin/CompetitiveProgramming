@@ -1,4 +1,4 @@
-// Codeforces Round 859A
+// 859A
 #include <algorithm>
 #include <climits>
 #include <cmath>

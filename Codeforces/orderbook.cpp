@@ -1,10 +1,10 @@
+// 572B
 #include <algorithm>
 #include <iostream>
 #include <map>
 #include <stack>
 #include <vector>
 using namespace std;
-//Codeforces Round #317 - Div. 2B
 
 struct cmp {
     bool operator()(const int &a, const int &b) {

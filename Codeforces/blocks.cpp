@@ -1,8 +1,8 @@
+// 574D
 #include <algorithm>
 #include <iostream>
 #include <vector>
 using namespace std;
-//Codeforces Round #318 - Div. 1B
 
 int main() {
 	int n;

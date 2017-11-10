@@ -1,3 +1,4 @@
+// 571B
 #include <algorithm>
 #include <climits>
 #include <cmath>
@@ -46,4 +47,32 @@ typedef unordered_map<string, string> umss;
 typedef vector<si> vsi;
 
 int main() {
+  int n, k;
+  cin >> n >> k;
+  vi a(n);
+  forf(i, n) {
+    cin >> a[i];
+  }
+  sort(a.begin(), a.end());
+  static int num_small = k - n % k, num_large = n % k;
+  static int small_size = n / k, large_size = n / k + 1;
+  vvll dp(num_small + 1, vll(num_large + 1));
+  for (int s = 0; s <= num_small; s++) {
+    fill(dp[s].begin(), dp[s].end(), LLONG_MAX);
+  }
+  dp[0][0] = 0;
+  for (int s = 0; s <= num_small; s++) {
+    for (int l = 0; l <= num_large; l++) {
+      int start_idx = s * small_size + l * large_size;
+      int end_idx = start_idx + small_size - 1;
+      if (s + 1 <= num_small) {
+        dp[s + 1][l] = min(dp[s + 1][l], dp[s][l] + abs(a[start_idx] - a[end_idx]));
+      }
+      end_idx++;
+      if (l + 1 <= num_large) {
+        dp[s][l + 1] = min(dp[s][l + 1], dp[s][l] + abs(a[start_idx] - a[end_idx]));
+      }
+    }
+  }
+  cout << dp[num_small][num_large] << '\n';
 }

@@ -1,8 +1,8 @@
+// 569A
 #include <algorithm>
 #include <iostream>
 #include <vector>
 using namespace std;
-//Codeforces Round #315 - Div. 2A
 
 int main() {
     int t, s, q;

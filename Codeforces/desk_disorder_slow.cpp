@@ -1,15 +1,14 @@
+// 859E
 #include <algorithm>
 #include <climits>
 #include <cmath>
 #include <deque>
-#include <functional>
 #include <iomanip>
 #include <iostream>
 #include <map>
 #include <queue>
 #include <set>
 #include <stack>
-#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 using namespace std;
@@ -37,13 +36,36 @@ typedef pair<double, double> pdd;
 typedef vector<pii> vpii;
 typedef vector<vpii> vvpii;
 typedef set<int> si;
-typedef unordered_set<int> usi;
-typedef unordered_set<string> uss;
-typedef map<int, int> mii;
-typedef map<string, string> mss;
-typedef unordered_map<int, int> umii;
-typedef unordered_map<string, string> umss;
 typedef vector<si> vsi;
 
+ll recurse(int i, unordered_set<int>& occupied, vector<pii>& move_to) {
+    ll ret = 0;
+    if (i == move_to.size()) {
+        return 1;
+    }
+    if (!occupied.count(move_to[i].first)) {
+        occupied.insert(move_to[i].first);
+        ret = (ret + recurse(i + 1, occupied, move_to)) % 1000000007;
+        occupied.erase(move_to[i].first);
+    }
+    if (move_to[i].second != move_to[i].first && !occupied.count(move_to[i].second)) {
+        occupied.insert(move_to[i].second);
+        ret = (ret + recurse(i + 1, occupied, move_to)) % 1000000007;
+        occupied.erase(move_to[i].second);
+    }
+    return ret;
+}
+
 int main() {
+    int n;
+    cin >> n;
+    vector<pii> move_to(n);
+    forf(i, n) {
+        int a, b;
+        cin >> a >> b;
+        move_to[i] = mp(a, b);
+    }
+    unordered_set<int> occupied;
+    cout << recurse(0, occupied, move_to) << '\n';
+    return 0;
 }
