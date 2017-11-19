@@ -1,4 +1,4 @@
-// 749A
+// 749C
 #include <algorithm>
 #include <climits>
 #include <cmath>
@@ -29,33 +29,32 @@ typedef vector<vector<string> > vvs;
 typedef pair<int, int> pii;
 typedef pair<double, double> pdd;
 
-vb sieve(int n) {
-    vb isPrime(n + 1);
-    for (int i = 2; i <= n; i++) {
-        isPrime[i] = true;
-    }
-    for (int i = 2; i <= (int) (ceil(sqrt(n))); i++) {
-        if (isPrime[i]) {
-            for (int j = i * i; j <= n; j += i) {
-                isPrime[j] = false;
-            }
-        }
-    }
-    return isPrime;
-}
-
 int main() {
     int n;
     cin >> n;
-    //vb isPrime = sieve(n);
-    cout << n/2 << '\n';
-    for (int i = 0; i < n/2 - 1; i++) {
-        cout << "2 ";
+    queue<int> d, r;
+    forf(i, n) {
+        char c;
+        cin >> c;
+        if (c == 'D') {
+            d.push(i);
+        } else {
+            r.push(i);
+        }
     }
-    if (n % 2) {
-        cout << "3\n";
+    while (!d.empty() && !r.empty()) {
+        if (d.front() < r.front()) {
+            d.push(d.front() + n);
+        } else {
+            r.push(r.front() + n);
+        }
+        d.pop();
+        r.pop();
+    }
+    if (!d.empty()) {
+        cout << "D\n";
     } else {
-        cout << "2\n";
+        cout << "R\n";
     }
     return 0;
 }

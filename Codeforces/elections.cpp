@@ -1,3 +1,4 @@
+// 570A
 #include <algorithm>
 #include <iostream>
 #include <vector>

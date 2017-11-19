@@ -1,4 +1,4 @@
-//572A
+// 572A
 #include <algorithm>
 #include <iostream>
 #include <vector>

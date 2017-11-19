@@ -16,6 +16,10 @@ using namespace std;
 #define mp make_pair
 #define forf(i, n) for (int i = 0; i < n; i++)
 #define forb(i, n) for (int i = n - 1; i >= 0; i--)
+#define forf2(i, n) for (int i = 0; i <= n; i++)
+#define forb2(i, n) for (int i = n; i >= 0; i--)
+#define forf3(i, n) for (int i = 1; i <= n; i++)
+#define forb3(i, n) for (int i = n; i >= 1; i--)
 typedef long long ll;
 typedef long double ld;
 typedef vector<int> vi;

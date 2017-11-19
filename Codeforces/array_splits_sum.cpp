@@ -1,4 +1,4 @@
-// 749A
+// 754A
 #include <algorithm>
 #include <climits>
 #include <cmath>
@@ -29,33 +29,36 @@ typedef vector<vector<string> > vvs;
 typedef pair<int, int> pii;
 typedef pair<double, double> pdd;
 
-vb sieve(int n) {
-    vb isPrime(n + 1);
-    for (int i = 2; i <= n; i++) {
-        isPrime[i] = true;
-    }
-    for (int i = 2; i <= (int) (ceil(sqrt(n))); i++) {
-        if (isPrime[i]) {
-            for (int j = i * i; j <= n; j += i) {
-                isPrime[j] = false;
-            }
-        }
-    }
-    return isPrime;
-}
-
 int main() {
     int n;
     cin >> n;
-    //vb isPrime = sieve(n);
-    cout << n/2 << '\n';
-    for (int i = 0; i < n/2 - 1; i++) {
-        cout << "2 ";
+    vi a(n);
+    bool yes = false;
+    int nnzero = 0, start = n;
+    forf(i, n) {
+        cin >> a[i];
+        if (a[i] != 0) {
+            yes = true;
+            nnzero++;
+            if (nnzero == 2) {
+                start = i;
+            }
+        }
     }
-    if (n % 2) {
-        cout << "3\n";
+    if (yes) {
+        cout << "YES\n" << nnzero << '\n';
+        cout << "1 " << start << '\n';
+        if (start < n) {
+            cout << start + 1 << ' ';
+            for (int i = start + 1; i < n; i++) {
+                if (a[i] != 0) {
+                    cout << i << '\n' << i + 1 << ' ';
+                }
+            }
+            cout << n << '\n';
+        }
     } else {
-        cout << "2\n";
+        cout << "NO\n";
     }
     return 0;
 }
