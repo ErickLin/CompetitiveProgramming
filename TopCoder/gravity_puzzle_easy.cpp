@@ -45,12 +45,39 @@ typedef unordered_map<int, int> umii;
 typedef unordered_map<string, string> umss;
 typedef vector<si> vsi;
 
-class  {
+class GravityPuzzleEasy {
   public:
-    
+    vs solve(vs board) {
+      int n = board.size(), m = board[0].size();
+      vs ret(board.size());
+      forf(i, n) {
+        forf(j, m) {
+          ret[i].push_back('.');
+        }
+      }
+      forf(j, m) {
+        int freq = 0;
+        forf(i, n) {
+          if (board[i][j] == '#') {
+            freq++;
+          }
+        }
+        forb(i, n) {
+          if (freq > 0) {
+            ret[i][j] = '#';
+            freq--;
+          }
+        }
+      }
+      return ret;
+    }
 };
 
 int main() {
-   a;
-  cout << a. << '\n';
+  GravityPuzzleEasy a;
+  vs ans = a.solve({"#", ".", "."});
+  forf(i, ans.size()) {
+    cout << ans[i] << ',';
+  }
+  cout << '\n';
 }
