@@ -2,14 +2,11 @@
 using namespace std;
 typedef long long ll;
 
-ll exp(int x, int k, ll mod) {
-  ll res = 1;
-  while (k > 0) {
-    if (k % 2 == 1) {
-      res = res * x % mod;
-    }
-    x = (ll) x * x % mod;
-    k >>= 1;
+int exp(int num, ll power, int mod) {
+  if (power == 0) {
+    return 1;
+  } else if (power == 1) {
+    return num;
   }
-  return res;
+  return (ll) exp(num, power % 2, mod) * exp((ll) num * num % mod, power / 2, mod) % mod;
 }

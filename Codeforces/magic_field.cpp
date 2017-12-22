@@ -3,24 +3,22 @@
 using namespace std;
 typedef long long ll;
 
-ll exp(int x, int k, ll mod) {
-  ll res = 1;
-  while (k > 0) {
-    if (k % 2 == 1) {
-      res = res * x % mod;
-    }
-    x = (ll) x * x % mod;
-    k >>= 1;
+int MOD = 1e9 + 7;
+int exp(int num, ll power) {
+  if (power == 0) {
+    return 1;
+  } else if (power == 1) {
+    return num;
   }
-  return res;
+  return (ll) exp(num, power % 2) * exp((ll) num * num % MOD, power / 2) % MOD;
 }
 
 int main() {
   ll n, m, k;
   cin >> n >> m >> k;
-  if (k == -1 && ((n % 2 == 0 && m % 2 == 1) || (n % 2 == 1 && m % 2 == 0))) {
+  if (k == -1 && (n % 2 != m % 2 == 1)) {
     cout << "0\n";
   } else {
-    cout << exp(2, (n - 1) * (m - 1), 1e9 + 7) << '\n';
+    cout << exp(exp(2, (n - 1)), m - 1) << '\n';
   }
 }
