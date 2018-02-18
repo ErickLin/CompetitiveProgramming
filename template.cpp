@@ -14,8 +14,8 @@
 #include <unordered_set>
 #include <vector>
 using namespace std;
-#define mp make_pair
 #define pb push_back
+#define ins insert
 #define forf(i, n) for (int i = 0; i < n; i++)
 #define forb(i, n) for (int i = n - 1; i >= 0; i--)
 #define forf2(i, n) for (int i = 0; i <= n; i++)
@@ -50,6 +50,7 @@ typedef map<string, string> mss;
 typedef unordered_map<int, int> umii;
 typedef unordered_map<string, string> umss;
 typedef vector<si> vsi;
+typedef list<int> li;
 
 int main() {
 }
