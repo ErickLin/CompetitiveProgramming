@@ -14,14 +14,15 @@
 #include <unordered_set>
 #include <vector>
 using namespace std;
-#define pb push_back
-#define ins insert
+#define all(c) (c).begin(), (c).end()
 #define forf(i, n) for (int i = 0; i < n; i++)
 #define forb(i, n) for (int i = n - 1; i >= 0; i--)
 #define forf2(i, n) for (int i = 0; i <= n; i++)
 #define forb2(i, n) for (int i = n; i >= 0; i--)
 #define forf3(i, n) for (int i = 1; i <= n; i++)
 #define forb3(i, n) for (int i = n; i >= 1; i--)
+#define ins insert
+#define pb push_back
 typedef long long ll;
 typedef long double ld;
 typedef vector<int> vi;
