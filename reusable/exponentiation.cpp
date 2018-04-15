@@ -28,3 +28,12 @@ int prod(int a, int b, int mod = 1e9 + 7) {
 int quot(int a, int b, int mod = 1e9 + 7) {
   return (ll) a * inv(b) % mod;
 }
+
+double exp(double num, int power) {
+  if (power == 0) {
+    return 1;
+  } else if (power == 1) {
+    return num;
+  }
+  return exp(num, power % 2) * exp(num * num, power / 2);
+}
